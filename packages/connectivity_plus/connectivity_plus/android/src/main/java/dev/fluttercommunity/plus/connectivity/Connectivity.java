@@ -16,7 +16,6 @@ public class Connectivity {
   static final String CONNECTIVITY_MOBILE = "mobile";
   static final String CONNECTIVITY_ETHERNET = "ethernet";
   static final String CONNECTIVITY_BLUETOOTH = "bluetooth";
-  static final String CONNECTIVITY_VPN = "vpn";
   private final ConnectivityManager connectivityManager;
 
   public Connectivity(ConnectivityManager connectivityManager) {
@@ -35,9 +34,6 @@ public class Connectivity {
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
         return CONNECTIVITY_ETHERNET;
-      }
-      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-        return CONNECTIVITY_VPN;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         return CONNECTIVITY_MOBILE;
@@ -60,14 +56,12 @@ public class Connectivity {
     int type = info.getType();
     switch (type) {
       case ConnectivityManager.TYPE_BLUETOOTH:
-        return CONNECTIVITY_BLUETOOTH;
+        return "bluetooth";
       case ConnectivityManager.TYPE_ETHERNET:
         return CONNECTIVITY_ETHERNET;
       case ConnectivityManager.TYPE_WIFI:
       case ConnectivityManager.TYPE_WIMAX:
         return CONNECTIVITY_WIFI;
-      case ConnectivityManager.TYPE_VPN:
-        return CONNECTIVITY_VPN;
       case ConnectivityManager.TYPE_MOBILE:
       case ConnectivityManager.TYPE_MOBILE_DUN:
       case ConnectivityManager.TYPE_MOBILE_HIPRI:

@@ -13,9 +13,7 @@
 This plugin allows Flutter apps to discover network connectivity and configure
 themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
-> **Note**
->
-> On Android, this does not guarantee connection to Internet. For instance, the app might have wifi access but it might be a VPN or a hotel WiFi > with no access.
+> Note that on Android, this does not guarantee connection to Internet. For instance, the app might have wifi access but it might be a VPN or a hotel WiFi with no access.
 
 ## Platform Support
 
@@ -30,30 +28,17 @@ Sample usage to check current status:
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-final connectivityResult = await (Connectivity().checkConnectivity());
+var connectivityResult = await (Connectivity().checkConnectivity());
 if (connectivityResult == ConnectivityResult.mobile) {
   // I am connected to a mobile network.
 } else if (connectivityResult == ConnectivityResult.wifi) {
   // I am connected to a wifi network.
-} else if (connectivityResult == ConnectivityResult.ethernet) {
-  // I am connected to a ethernet network.
-} else if (connectivityResult == ConnectivityResult.vpn) {
-  // I am connected to a vpn network.
-  // Note for iOS and macOS:
-  // There is no separate network interface type for [vpn].
-  // It returns [other] on any device (also simulator)
-} else if (connectivityResult == ConnectivityResult.bluetooth) {
-  // I am connected to a bluetooth.
-} else if (connectivityResult == ConnectivityResult.other) {
-  // I am connected to a network which is not in the above mentioned networks.
-} else if (connectivityResult == ConnectivityResult.none) {
-  // I am not connected to any network.
 }
 ```
 
-> **Note**
->
-> You should not be using the current network status for deciding whether you can reliably make a network connection. Always guard your app code against timeouts and errors that might come from the network layer.
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+
+> Note that you should not be using the current network status for deciding whether you can reliably make a network connection. Always guard your app code against timeouts and errors that might come from the network layer.
 
 You can also listen for network state changes by subscribing to the stream
 exposed by connectivity plugin:
@@ -67,20 +52,19 @@ initState() {
 
   subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     // Got a new connectivity status!
-  });
+  })
 }
 
 // Be sure to cancel subscription after you are done
 @override
 dispose() {
-  subscription.cancel();
   super.dispose();
+
+  subscription.cancel();
 }
 ```
 
-> **Note**
->
-> Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). _You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
+Note that connectivity changes are no longer communicated to Android apps in the background starting with Android O. _You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
 
 ## Limitations on the web platform
 
@@ -100,7 +84,9 @@ The NavigatorOnLine API is [provided by `dart:html`](https://api.dart.dev/stable
 
 Other than the approximate "downlink" speed, where available, and due to security and privacy concerns, **no Web browser will provide** any specific information about the actual network your users' device is connected to, like **the SSID on a Wi-Fi, or the MAC address of their device.**
 
-## Learn more
+## Getting Started
 
-- [API Documentation](https://pub.dev/documentation/connectivity_plus/latest/connectivity_plus/connectivity_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/connectivity_plus/overview)
+For help getting started with Flutter, view our online
+[documentation](https://flutter.dev/).
+
+For help on editing plugin code, view the [documentation](https://flutter.dev/platform-plugins/#edit-code).
